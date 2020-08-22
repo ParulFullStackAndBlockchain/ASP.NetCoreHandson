@@ -1,7 +1,7 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:14763",
       "sslPort": 0
@@ -25,3 +25,5 @@
     }
   }
 }
+//The settings in this file are used when we run this ASP.NET core project either from Visual Studio or by using .NET Core CLI.
+//This file is only used on local development machine. We do not need it for publishing our asp.net core application.
