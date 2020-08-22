@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  
+	  <!-- With InProcess hosting, the application is hosted in the IIS worker process (w3wp.exe or iisexpress.exe). 
+	  With InProcess hosting, there is only one web server and that is the IIS server that hosts our application.-->
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel> 
+	  
+	  <!-- With out of process hosting.There are 2 web servers - An an internal web server and an external web server.
+		The internal web server is Kestrel and the external web server can be IIS, Nginx or Apache. -->
+	  <!-- Kestrel can be used as the internet facing web server that process the incoming HTTP requests directly. 
+		In this model we are not using an external web server. -->
+	  <!-- Kestrel can also be used in combination with a reverse proxy server, such as IIS, Nginx, or Apache. 
+		Example: IIS Express takes the incoming HTTP request and forwards it to Kestrel for processing. Kestrel process the 
+		request and sends the response to IIS Express. IIS Express, in turn sends that response to the browser.-->
+	<!-- <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel> -->
   </PropertyGroup>
 
 </Project>
