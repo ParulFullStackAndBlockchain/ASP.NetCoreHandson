@@ -31,35 +31,17 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+                {
+                    SourceCodeLineCount = 1
+                };
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
 
-
-            //Static files Point: 1
-            // Add Default Files Middleware
-            //app.UseDefaultFiles();
-            // Add Static Files Middleware.Note: UseDefaultFiles must be called before UseStaticFiles to serve the default file.
-            //app.UseStaticFiles();
-
-            //Static files Point: 2
-            //If you want to use another document like foo.html for example as your default document, 
-            //you can do so using the following code.
-            // Specify foo.html as the default document
-            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            //defaultFilesOptions.DefaultFileNames.Clear();
-            //defaultFilesOptions.DefaultFileNames.Add("foo.html");
-            //app.UseDefaultFiles(defaultFilesOptions);
-            //app.UseStaticFiles();
-
-            //Static files Point: 3
-            //UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware. 
-            //Also DirectoryBrowser middleware, enables directory browsing and allows users to see files within a specified directory. 
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(fileServerOptions);
+            //app.UseFileServer();
 
             app.UseRouting();
 
@@ -67,9 +49,11 @@ namespace EmployeeManagement
             {
                 endpoints.MapGet("/", async context =>
                 {
+                    throw new Exception("Some error processing the request");
                     await context.Response.WriteAsync("Hello World");
                 });
             });
+
         }
     }
 }

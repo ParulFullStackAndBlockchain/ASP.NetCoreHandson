@@ -22,6 +22,7 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\appsettings.D
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\EmployeeManagement.exe
+C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\wwwroot\foo.html
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\EmployeeManagement.deps.json
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\EmployeeManagement.runtimeconfig.json
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\EmployeeManagement.runtimeconfig.dev.json
@@ -37,5 +38,3 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.dll
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.pdb
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.genruntimeconfig.cache
-C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\wwwroot\foo.html
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csprojAssemblyReference.cache
