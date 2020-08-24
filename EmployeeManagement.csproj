@@ -17,4 +17,10 @@
 	<!-- <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel> -->
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\foo.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
