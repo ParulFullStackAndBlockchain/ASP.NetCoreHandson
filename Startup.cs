@@ -29,49 +29,37 @@ namespace EmployeeManagement
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //This middleware responds with the developer exception page, if there is an exception and if the environment is Development.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-             //IMP Points :
-             //1. The second middleware that is registered using the Run() method, can only write a message to the Response object.
-             //At the moment, this is the middleware that responds to every request.
-             //2. Doesn’t matter what your request path is.All requests will be handled by this one piece of middleware and the response we 
-             //get is the string message that the middleware is writing to the Response object.The response is plain text and not html.
-             //3. A middleware that is registered using the Run() method cannot call the next middleware in the pipeline
-             //So, the middleware that we register using Run() method is a terminal middleware.
 
-             //app.Run(async (context) =>
-             //{
-             //    await context.Response.WriteAsync("Hello from 1st Middleware");
-             //});
+            //Static files Point: 1
+            // Add Default Files Middleware
+            //app.UseDefaultFiles();
+            // Add Static Files Middleware.Note: UseDefaultFiles must be called before UseStaticFiles to serve the default file.
+            //app.UseStaticFiles();
 
+            //Static files Point: 2
+            //If you want to use another document like foo.html for example as your default document, 
+            //you can do so using the following code.
+            // Specify foo.html as the default document
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseDefaultFiles(defaultFilesOptions);
+            //app.UseStaticFiles();
 
-             //IMP Points : 
-             //1. If you want your middleware to be able to call the next middleware in the pipeline, then register the middleware using 
-             //Use() method 
-             //2. Use() method has 2 parameters. The first parameter is the HttpContext context object and the second parameter is 
-             //the Func type i.e it is a generic delegate that represents the next middleware in the pipeline.
-             //3. It is through this HttpContext object, the middleware gains access to both the incoming http request 
-             //and outgoing http response.
-
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW1: Incoming Request");
-                await next();
-                logger.LogInformation("MW1: Outgoing Response");
-            });
-
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming Request");
-                await next();
-                logger.LogInformation("MW2: Outgoing Response");
-            });
+            //Static files Point: 3
+            //UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware. 
+            //Also DirectoryBrowser middleware, enables directory browsing and allows users to see files within a specified directory. 
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer(fileServerOptions);
 
             app.UseRouting();
 
@@ -79,8 +67,7 @@ namespace EmployeeManagement
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("MW3: Request handled and response produced");
-                    logger.LogInformation("MW3: Request handled and response produced");
+                    await context.Response.WriteAsync("Hello World");
                 });
             });
         }
