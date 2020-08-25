@@ -12,10 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        //Note : 1. We can also set ASPNETCORE_ENVIRONMENT value in the operating system.
-        //2. If we do not explicitly set ASPNETCORE_ENVIRONMENT variable, it defaults to Production. 
-        //This is done on purpose for better security and performance. 
-        //3. On a staging or production environment we typically set this environment variable in the operating system.
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
