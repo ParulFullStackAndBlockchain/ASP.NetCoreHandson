@@ -38,4 +38,3 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.dll
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.pdb
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.genruntimeconfig.cache
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csprojAssemblyReference.cache

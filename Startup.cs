@@ -30,7 +30,13 @@ namespace EmployeeManagement
             //Step1: Adds the required MVC services to the dependency injection container in asp.net core
             //Step2: Endpoint Routing does not support 'IApplicationBuilder.UseMvc(...)'. To use 'IApplicationBuilder.UseMvc'
             //set 'MvcOptions.EnableEndpointRouting = false'
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            //services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            //AddMvcCore() method only adds the core MVC services. On the other hand, AddMvc() method adds all the required
+            //MVC services. AddMvc() method calls AddMvcCore() method internally, to add all the core MVC services. 
+            //So if we are calling AddMvc() method there is no need to explicitly call AddMvcCore() method again.
+            //IMP Note: In ASP.NET Core 3.x the System.Text.Json formatter is actually already included in the call to AddMvcCore()
+            services.AddMvcCore(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
