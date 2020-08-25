@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,16 +28,12 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //Step1: Adds the required MVC services to the dependency injection container in asp.net core
-            //Step2: Endpoint Routing does not support 'IApplicationBuilder.UseMvc(...)'. To use 'IApplicationBuilder.UseMvc'
-            //set 'MvcOptions.EnableEndpointRouting = false'
-            //services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            //AddMvcCore() method only adds the core MVC services. On the other hand, AddMvc() method adds all the required
-            //MVC services. AddMvc() method calls AddMvcCore() method internally, to add all the core MVC services. 
-            //So if we are calling AddMvc() method there is no need to explicitly call AddMvcCore() method again.
-            //IMP Note: In ASP.NET Core 3.x the System.Text.Json formatter is actually already included in the call to AddMvcCore()
-            services.AddMvcCore(option => option.EnableEndpointRouting = false);
+            //To fix the InvalidOperationException error, registering MockEmployeeRepository class with the dependency injection 
+            //container in ASP.NET core using AddSingleton() method.Note: AddTransient() or AddScoped() method can also be used 
+            //in place of AddSingleton() method.The method that we use determines the lifetime of the registered service.
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +47,6 @@ namespace EmployeeManagement
 
             app.UseStaticFiles();
 
-            //Step3 : Add MVC midddleware to our application's request processing pipeline.
             app.UseMvcWithDefaultRoute();
 
             app.UseRouting();
