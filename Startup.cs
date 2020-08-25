@@ -28,11 +28,11 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            //To be able to return data in XML format, Xml Serializer Formatter is added.This way application respects 
+            //content negotiation. It looks at the Request Accept Header and if it is set to application/xml, then XML data is 
+            //returned. If the Accept header is set to application/json, then JSON data is returned.
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddXmlSerializerFormatters();
 
-            //To fix the InvalidOperationException error, registering MockEmployeeRepository class with the dependency injection 
-            //container in ASP.NET core using AddSingleton() method.Note: AddTransient() or AddScoped() method can also be used 
-            //in place of AddSingleton() method.The method that we use determines the lifetime of the registered service.
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
 

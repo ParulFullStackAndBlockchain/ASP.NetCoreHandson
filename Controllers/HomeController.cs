@@ -9,7 +9,7 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         //Inject IEmployeeRepository using Constructor Injection.This prevents HomeController from being coupled to 
         //MockEmployeeRepository. Later if we provide a new implementation for IEmployeeRepository and if we want to use that 
@@ -21,6 +21,20 @@ namespace EmployeeManagement.Controllers
         public string Index()
         {
             return _employeeRepository.GetEmployee(1).Name;
+        }
+
+        //Controller returns ObjectResult.This is for, when we are building an API.
+        //public ObjectResult Details()
+        //{
+        //    Employee model = _employeeRepository.GetEmployee(1);
+        //    return new ObjectResult(model);
+        //}
+
+        //Controller returns View.This is for when we are building an MVC application.
+        public ViewResult Details()
+        {
+            Employee model = _employeeRepository.GetEmployee(1);
+            return View(model);
         }
     }
 }
