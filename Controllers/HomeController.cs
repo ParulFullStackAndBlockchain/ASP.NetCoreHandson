@@ -34,7 +34,21 @@ namespace EmployeeManagement.Controllers
         public ViewResult Details()
         {
             Employee model = _employeeRepository.GetEmployee(1);
-            return View(model);
+            //return View(model);
+
+            //Using View(string viewName) method
+            //return View("Test");
+
+            //  Absolute View file path//Note : With the absolute path, to get to the root project directory, we can use
+            //  / or ~/. So the following 3 lines of code does the same thing: 'return View("MyViews/Test.cshtml");',
+            //  'return View("/MyViews/Test.cshtml");','return View("~/MyViews/Test.cshtml");'.
+            //return View("MyViews/Test.cshtml");
+
+            //Relative View File Path-1. Note: With relative path we do not specify the file extension .cshtml.
+            //return View("../Test/Update");
+
+            //Relative View File Path-2.
+            return View("../../MyViews/Test");
         }
     }
 }
