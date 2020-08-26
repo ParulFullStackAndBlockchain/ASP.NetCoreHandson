@@ -9,16 +9,6 @@
     <div>
         @RenderBody()
     </div>
-
-    @*If the custom script file is required by all the views then we could place it in the Layout page as shown below.
-    <script src="~/js/CustomScript.js"></script>*@
-    @*In our case we only need it in the Details view but not in the other views. This is one example where we could make
-        use of a section.*@
-    @*Rendering the Section : In the layout page, call RenderSection() method at the location where you want the section content
-        to be rendered. In our case, we want the script file to be included just before the closing </body> tag.
-        This is the reason we have placed the call to @RenderSection() method just before the closing </body> tag.*@ 
-    @*The first parameter specifies the name of the section. The second parameter parameter specifies if the section is
-        required or optional.*@
     @RenderSection("Scripts", required: false)
 
 </body>

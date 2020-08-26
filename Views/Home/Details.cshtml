@@ -1,8 +1,10 @@
 ﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
 
 @{
-    //To render a view using the layout view(_Layout.cshtml) Layout property is set.
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Please note : If you want to use a layout file that is different from what is specified in _ViewStart.cshtml, 
+    //    you can do so by setting the Layout property in an individual view.You can also set the Layout property to null, 
+    //    if you want your view to be rendered without a layout view.
+
     ViewBag.Title = Model.PageTitle;
 }
 
@@ -18,12 +20,6 @@
     Department : @Model.Employee.Department
 </div>
 
-
-
-@*Providing Section Content : Every view that intends to provide content for the section, must include a section with the 
-    same name. We use @section directive to include the section and provide the content*@
-@*In our case, we want the details view to include <script> tag in the "Scripts" section in the layout page.
-    To achieve this we include "Scripts" section in Details.cshtml as shown below.*@
 @section Scripts {
     <script src="~/js/CustomScript.js"></script>
 }
