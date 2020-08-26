@@ -17,3 +17,13 @@
 <div>
     Department : @Model.Employee.Department
 </div>
+
+
+
+@*Providing Section Content : Every view that intends to provide content for the section, must include a section with the 
+    same name. We use @section directive to include the section and provide the content*@
+@*In our case, we want the details view to include <script> tag in the "Scripts" section in the layout page.
+    To achieve this we include "Scripts" section in Details.cshtml as shown below.*@
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+}
