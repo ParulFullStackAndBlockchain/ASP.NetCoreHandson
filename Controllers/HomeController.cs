@@ -23,32 +23,14 @@ namespace EmployeeManagement.Controllers
             return _employeeRepository.GetEmployee(1).Name;
         }
 
-        //Controller returns ObjectResult.This is for, when we are building an API.
-        //public ObjectResult Details()
-        //{
-        //    Employee model = _employeeRepository.GetEmployee(1);
-        //    return new ObjectResult(model);
-        //}
-
         //Controller returns View.This is for when we are building an MVC application.
         public ViewResult Details()
         {
             Employee model = _employeeRepository.GetEmployee(1);
-            //return View(model);
-
-            //Using View(string viewName) method
-            //return View("Test");
-
-            //  Absolute View file path//Note : With the absolute path, to get to the root project directory, we can use
-            //  / or ~/. So the following 3 lines of code does the same thing: 'return View("MyViews/Test.cshtml");',
-            //  'return View("/MyViews/Test.cshtml");','return View("~/MyViews/Test.cshtml");'.
-            //return View("MyViews/Test.cshtml");
-
-            //Relative View File Path-1. Note: With relative path we do not specify the file extension .cshtml.
-            //return View("../Test/Update");
-
-            //Relative View File Path-2.
-            return View("../../MyViews/Test");
+            // Pass PageTitle and Employee model to the View using ViewData
+            ViewData["PageTitle"] = "Employee Details";
+            ViewData["Employee"] = model;
+            return View();
         }
     }
 }
