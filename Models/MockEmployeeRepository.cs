@@ -19,6 +19,11 @@ namespace EmployeeManagement.Models
         };
         }
 
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return this._employeeList;
+        }
+
         public Employee GetEmployee(int Id)
         {
             return this._employeeList.FirstOrDefault(e => e.Id == Id);
