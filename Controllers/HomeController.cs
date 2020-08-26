@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EmployeeManagement.Models;
+using EmployeeManagement.ViewModels;
 
 namespace EmployeeManagement.Controllers
 {
@@ -23,14 +24,17 @@ namespace EmployeeManagement.Controllers
             return _employeeRepository.GetEmployee(1).Name;
         }
 
-        //Controller returns View.This is for when we are building an MVC application.
         public ViewResult Details()
         {
-            Employee model = _employeeRepository.GetEmployee(1);
-            ViewBag.PageTitle = "Employee Details";
-            return View(model);
+            // Instantiate HomeDetailsViewModel and store Employee details and PageTitle
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                Employee = _employeeRepository.GetEmployee(1),
+                PageTitle = "Employee Details"
+            };
+
+            // Pass the ViewModel object to the View() helper method
+            return View(homeDetailsViewModel);
         }
-        // Note: Here we are still using ViewBag to pass PageTitle from the Controller to the View. How can we use a strongly 
-        // typed view to pass PageTitile. Well, this is one example, where we can use a view specific model called ViewModel.
     }
 }

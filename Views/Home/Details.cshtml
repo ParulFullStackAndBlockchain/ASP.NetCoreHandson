@@ -1,25 +1,20 @@
-﻿@*To create a strongly typed view specify the model type in the view using @model directive as shown below*@
-@model EmployeeManagement.Models.Employee
-@*Please note that in the directive(@model), m is in lowercase.*@
+﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
 </head>
 <body>
-    <h3>@ViewBag.PageTitle</h3>
+    <h3>@Model.PageTitle</h3>
 
-    @*To access the model object properties we use @Model. In @Model, M is in uppercase.*@
     <div>
-        Name : @Model.Name
+        Name : @Model.Employee.Name
     </div>
     <div>
-        Email : @Model.Email
+        Email : @Model.Employee.Email
     </div>
     <div>
-        Department : @Model.Department
+        Department : @Model.Employee.Department
     </div>
 </body>
 </html>
-@* Strongly Typed View Benefits
-    Unlike ViewData and ViewBag, a strongly typed view provides compile-time type checking and intellisense. *@ 
