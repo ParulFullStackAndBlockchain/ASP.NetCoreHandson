@@ -2,26 +2,4 @@
     Layout = "_Layout";
 }
 
-    @*What is _ViewStart.cshtml file in ASP.NET Core MVC
-
-    It's a special file in ASP.NET Core MVC. The code in this file is executed before the code in an individual view is executed.
-    So this means, instead of setting the Layout property in each individual view, we can move that code into the
-    _ViewStart.cshtml file.*@
-
-    @*Logic to select layout view
-    In an ASP.NET Core MVC application, we can have multiple layout views. Let's say for example, we have the following 
-    2 layout views in our application. 
-    _AdminLayout.cshtml
-    _NonAdminLayout.cshtml
-    The following logic in _ViewStart.cshtml will select the layout view spending on the logged-in user role.
-
-    @{
-        if (User.IsInRole("Admin"))
-        {
-            Layout = "_AdminLayout";
-        }
-        else
-        {
-            Layout = "_NonAdminLayout";
-        }
-    }*@
+    
