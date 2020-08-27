@@ -47,7 +47,21 @@ namespace EmployeeManagement
 
             app.UseStaticFiles();
 
-            app.UseMvcWithDefaultRoute();
+            //There are 2 routing techniques in ASP.NET Core MVC. Conventional Routing and Attribute Routing.
+            //Conventional Routing : UseMvcWithDefaultRoute() method adds MVC with the following default route to our 
+            //application's request processing pipeline. {controller=Home}/{action=Index}/{id?}
+
+            //Note: UseMvcWithDefaultRoute() method internally calls UseMvc() method and it sets up the default route. 
+            //app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes =>
+            {
+                //The default route template "{controller=Home}/{action=Index}/{id?}" maps most URL's that have the following 
+                //pattern http://localhost:14763/home/details/1
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.UseRouting();
 
