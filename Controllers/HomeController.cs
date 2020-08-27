@@ -8,8 +8,6 @@ using EmployeeManagement.ViewModels;
 
 namespace EmployeeManagement.Controllers
 {
-    [Route("[controller]/[action]")] // to be used in token attribute routing only
-    /*[Route("Home")] */// Not to be used in token attribute routing
     public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
@@ -21,28 +19,13 @@ namespace EmployeeManagement.Controllers
         {
             _employeeRepository = employeeRepository;
         }
-
-        //IMP Note : the controller route template is not combined with action method route template if the route template on 
-        //the action method begins with / or ~/.
-
-        [Route("~/Index")]
-        [Route("")]
-        [Route("~/")]
-        /*[Route("Index")]*/ // Not to be used in token attribute routing
-        //[Route("")]
-        //[Route("Home")]
-        //[Route("Home/Index")]
+       
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
 
-        [Route("{id?}")] //to be used with token based routing only
-        /*[Route("Details/{id?}")] */// Not to be used in token attribute routing
-        // The ? makes id route parameter optional. To make it required remove ?
-        //[Route("Home/Details/{id?}")]
-        // ? makes id method parameter nullable
         public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()

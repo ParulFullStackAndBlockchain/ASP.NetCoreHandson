@@ -3,13 +3,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
+    <div class="container">
         @RenderBody()
     </div>
     @RenderSection("Scripts", required: false)
 
 </body>
 </html>
+
+@*
+  To start using Bootstrap in your asp.net core application, include a reference to the Boostrap.css file in the layout file
+    _Layout.cshtml. Also include a reference to our custom stylesheet site.css.
+  Please note : We are using the Bootstrap "container" class for positioning elements on the page.
+*@
