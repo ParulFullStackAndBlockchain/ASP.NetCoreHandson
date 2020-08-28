@@ -11,11 +11,6 @@
         <div class="card-header">
             <h3>@employee.Name</h3>
         </div>
-        @*When we visit a web page, most modern browsers cache the images of that web page. When we visit the page again,
-            instead of downloading the same image again from the web server, the browser serves the image from the cache.
-
-            If you do not want a browser to use it's cache you can disable it using Image Tag Helper by including
-            asp-append-version attribute and set it to true.*@
         <img class="card-img-top" src="~/images/noimage.jpg" asp-append-version="true" />
         <div class="card-footer text-center">
             <a asp-controller="home" asp-action="details" asp-route-id="@employee.Id" class="btn btn-primary">View</a>
