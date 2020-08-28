@@ -129,3 +129,4 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\H
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\libman.json
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Create.cshtml.g.cs
