@@ -13,17 +13,11 @@
             </div>
             <img class="card-img-top" src="~/images/noimage.jpg" />
             <div class="card-footer text-center">
-                @*Option3 : Using Tag Helpers*@
-                <a asp-controller="home" asp-action="details"
-                   asp-route-id="@employee.Id">View</a>
+                @*The code that's using the anchor tag helper will generate the correct link*@
+                <a asp-controller="home" asp-action="details" asp-route-id="@employee.Id">View</a>
 
-                @*@Url.Action("details", "home", new { id = employee.Id })*@
-
-                @* Option2 : Using HTML helpers*@
-                @*@Html.ActionLink("View", "details", new { id = employee.Id })*@
-
-                @* Option1 : Manually generating the links*@
-                @*<a href="/home/details/@employee.Id" class="btn btn-primary">View</a>*@
+                @*The code that's not using the anchor tag helper continues to generate link where"/godigitalpro" is missing.*@
+                <a href="/home/details/@employee.Id" class="btn btn-primary">View</a>
 
                 <a href="#" class="btn btn-primary">Edit</a>
                 <a href="#" class="btn btn-danger">Delete</a>
