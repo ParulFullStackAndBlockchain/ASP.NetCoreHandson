@@ -49,10 +49,9 @@ namespace EmployeeManagement
 
             //app.UseMvcWithDefaultRoute();
 
-            //Notice in the URL we have the string literal "godigitalpro"
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "godigitalpro/{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseRouting();
