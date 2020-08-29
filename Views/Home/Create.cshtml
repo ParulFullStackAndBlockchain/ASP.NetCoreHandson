@@ -32,3 +32,13 @@
         </div>
     </div>
 </form>
+
+@*Model Binding Complex Types
+Model Binding also works with complex types such as Customer, Order, Employee etc. Consider this "Create Employee Form".
+When the above form is posted to the server, the values in the form are mapped to the Employee object parameter of the  
+Create() action method.
+Model binder in asp.net core binds the posted form values to the properties of the Employee object that is passed as a 
+parameter to the Create() action method.
+The value in the input element that has the name attribute set to "Name" is mapped to the Name property of the Employee object
+Similarly value in the input element with name "Email" is mapped to Email property of the Employee object
+The same is true for Department*@

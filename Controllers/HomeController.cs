@@ -37,9 +37,24 @@ namespace EmployeeManagement.Controllers
             return View(homeDetailsViewModel);
         }
 
+        [HttpGet]
         public ViewResult Create()
         {
             return View();
+        }
+
+        //HTTP Request Data
+        //To bind the request data to the controller action method parameters, model binding looks for data in the HTTP request
+        //in the following places in the order specified below.
+        //Form values
+        //Route values
+        //Query strings
+        
+        [HttpPost]
+        public RedirectToActionResult Create(Employee employee)
+        {
+            Employee newEmployee = _employeeRepository.Add(employee);
+            return RedirectToAction("details", new { id = newEmployee.Id });
         }
     }
 }
