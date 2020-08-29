@@ -9,12 +9,16 @@
         <label asp-for="Name" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
             <input asp-for="Name" class="form-control" placeholder="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <label asp-for="Email" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
             <input asp-for="Email" class="form-control" placeholder="Email">
+            @*To display the validation error associated with the Name property of the Employee class use asp-validation-for 
+            tag helper on a <span> element as shown below.*@
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
 
@@ -26,6 +30,11 @@
         </div>
     </div>
 
+    @*To display a summary of all validation errors
+      To change the colour of the model validation errors on the UI, use Bootstrap text-danger class on the <span> 
+        and <div> elements that have asp-validation-for and asp-validation-summary tag helpers*@
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="form-group row">
         <div class="col-sm-10">
             <button type="submit" class="btn btn-primary">Create</button>
@@ -33,12 +42,3 @@
     </div>
 </form>
 
-@*Model Binding Complex Types
-Model Binding also works with complex types such as Customer, Order, Employee etc. Consider this "Create Employee Form".
-When the above form is posted to the server, the values in the form are mapped to the Employee object parameter of the  
-Create() action method.
-Model binder in asp.net core binds the posted form values to the properties of the Employee object that is passed as a 
-parameter to the Create() action method.
-The value in the input element that has the name attribute set to "Name" is mapped to the Name property of the Employee object
-Similarly value in the input element with name "Email" is mapped to Email property of the Employee object
-The same is true for Department*@
