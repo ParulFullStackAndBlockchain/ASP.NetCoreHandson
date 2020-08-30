@@ -23,5 +23,11 @@ namespace EmployeeManagement.Models
         //We will use this DbSet property Employees to query and save instances of the Employee class.
         //The LINQ queries against the DbSet<TEntity> will be translated into queries against the underlying database.
         public DbSet<Employee> Employees { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();           
+        }
     }
 }
