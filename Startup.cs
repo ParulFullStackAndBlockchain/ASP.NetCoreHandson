@@ -29,15 +29,6 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //1. We can use either AddDbContext() or AddDbContextPool() method to register our application specific 
-            //DbContext class with the ASP.NET Core dependency injection system.
-            //2. UseSqlServer() extension method is used to configure our application specific DbContext class to use 
-            //Microsoft SQL Server as the database.
-            //3. To connect to a database, we need the database connection string which is provided as a parameter to 
-            //UseSqlServer() extension method.Instead of hard-coding the connection string in application code, we store
-            //it in appsettings.json configuration file.
-            //4. To read connection string from appsettings.json file we use IConfiguration service 
-            //GetConnectionString() method.
             services.AddDbContextPool<AppDbContext>(
             options => options.UseSqlServer(_configuration.GetConnectionString("EmployeeDBConnection")));
 
@@ -45,8 +36,14 @@ namespace EmployeeManagement
             //content negotiation. It looks at the Request Accept Header and if it is set to application/xml, then XML data is 
             //returned. If the Accept header is set to application/json, then JSON data is returned.
             services.AddMvc(option => option.EnableEndpointRouting = false).AddXmlSerializerFormatters();
-           
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+
+            //Note : We are using AddScoped() method because we want the instance to be alive and available for the 
+            //entire scope of the given HTTP request. For another new HTTP request, a new instance of 
+            //SQLEmployeeRepository class will be provided and it will be available throughout the entire scope of 
+            //that HTTP request.
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
+
+            //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
