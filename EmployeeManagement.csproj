@@ -18,6 +18,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200830144229_AddPhotoPathToEmployees.cs" />
+    <Compile Remove="Migrations\20200830144229_AddPhotoPathToEmployees.Designer.cs" />
+    <Compile Remove="Migrations\20200830144643_AddPhotoPathToEmployees.cs" />
+    <Compile Remove="Migrations\20200830144643_AddPhotoPathToEmployees.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot\foo.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
