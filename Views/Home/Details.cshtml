@@ -1,7 +1,8 @@
 ﻿@model HomeDetailsViewModel
 
 @{
-    ViewBag.Title = Model.PageTitle;
+    ViewBag.Title = "Employee Details";
+    var photoPath = "~/images/" + (Model.Employee.PhotoPath ?? "noimage.jpg");
 }
 
 <div class="row justify-content-center m-3">
@@ -12,7 +13,7 @@
             </div>
 
             <div class="card-body text-center">
-                <img class="card-img-top" src="~/images/noimage.jpg" />
+                <img class="card-img-top" src="@photoPath" asp-append-version="true" />
 
                 <h4>Employee ID : @Model.Employee.Id</h4>
                 <h4>Email : @Model.Employee.Email</h4>
@@ -20,15 +21,10 @@
 
             </div>
             <div class="card-footer text-center">
-                <a href="#" class="btn btn-primary">Back</a>
+                <a asp-controller="home" asp-action="index" class="btn btn-primary">Back</a>
                 <a href="#" class="btn btn-primary">Edit</a>
                 <a href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
 </div>
-
-
-@section Scripts {
-    <script src="~/js/CustomScript.js"></script>
-}
