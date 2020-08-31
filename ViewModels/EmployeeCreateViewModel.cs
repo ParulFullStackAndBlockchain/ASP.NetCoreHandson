@@ -13,7 +13,7 @@ namespace EmployeeManagement.ViewModels
         public string Email { get; set; }
         public Dept? Department { get; set; }
         //The file uploaded to the server can be accessed through Model Binding using the IFormFile interface.
-        //public IFormFile Photo { get; set; }
-        public List<IFormFile> Photos { get; set; }
+        public IFormFile Photo { get; set; }
+
     }
 }
