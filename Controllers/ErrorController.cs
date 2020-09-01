@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,24 @@ namespace EmployeeManagement.Controllers
             }
 
             return View("NotFound");
+        }
+
+        //Retrieves the exception details and returns the custom Error view. 
+        //Note: In a production application, we do not display the exception details on the error view. We instead log them 
+        //to a database table, file, event viewer etc, so a developer can review them and provide a code fix if required. 
+        [AllowAnonymous]
+        [Route("Error")]
+        public IActionResult Error()
+        {
+            // Retrieve the exception Details
+            var exceptionHandlerPathFeature =
+                    HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            ViewBag.ExceptionPath = exceptionHandlerPathFeature.Path;
+            ViewBag.ExceptionMessage = exceptionHandlerPathFeature.Error.Message;
+            ViewBag.StackTrace = exceptionHandlerPathFeature.Error.StackTrace;
+
+            return View("Error");
         }
     }
 }
