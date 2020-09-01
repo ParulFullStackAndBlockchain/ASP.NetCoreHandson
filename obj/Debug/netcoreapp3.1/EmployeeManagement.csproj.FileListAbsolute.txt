@@ -154,6 +154,8 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManag
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorCoreGenerate.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Create.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Details.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edit.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\EmployeeNotFound.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ViewStart.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -168,6 +170,4 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\staticwebasse
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.dll
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.pdb
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.genruntimeconfig.cache
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csprojAssemblyReference.cache
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edit.cshtml.g.cs
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Home\EmployeeNotFound.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\NotFound.cshtml.g.cs
