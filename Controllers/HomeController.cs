@@ -30,8 +30,6 @@ namespace EmployeeManagement.Controllers
 
         public ViewResult Details(int id)
         {
-            //We are deliberately throwing an exception using the throw keyword.
-            throw new Exception("Error in Details View");
 
             Employee employee = _employeeRepository.GetEmployee(id);
 
