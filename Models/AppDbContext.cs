@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public class AppDbContext : DbContext
+    //Your application DbContext class must inherit from IdentityDbContext class instead of DbContext class. 
+    //This is required because IdentityDbContext provides all the DbSet properties needed to manage the identity
+    //tables in SQL Server.
+    public class AppDbContext : IdentityDbContext
     {
         //DbContextOptions in Entity Framework Core
         //For the DbContext class to be able to do any useful work, it needs an instance of the DbContextOptions class.
@@ -27,6 +31,12 @@ namespace EmployeeManagement.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Keys of Identity tables are mapped in OnModelCreating method of IdentityDbContext class. 
+            //So, to fix the error, 'This migration contains code that creates the tables required by the ASP.NET Core 
+            //Identity system.Error: The entity type 'IdentityUserLogin<string>' requires a primary key to be defined'
+            //Call the base class OnModelCreating() method using the base keyword as shown below.
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Seed();           
         }
     }
