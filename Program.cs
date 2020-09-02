@@ -22,14 +22,13 @@ namespace EmployeeManagement
                  .ConfigureLogging((hostingContext, logging) =>
                  {
                      // Remove all the default logging providers
-                     logging.ClearProviders();
+                     //logging.ClearProviders();
 
                      logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
 
-                     //logging.AddConsole();
-                     //logging.AddDebug();
-                     //logging.AddEventSourceLogger();
-
+                     logging.AddConsole();
+                     logging.AddDebug();
+                     logging.AddEventSourceLogger();
                      // Enable NLog as one of the Logging Provider
                      logging.AddNLog();
                  })

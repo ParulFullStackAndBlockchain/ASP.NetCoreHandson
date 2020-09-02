@@ -51,7 +51,7 @@ namespace EmployeeManagement
         {
 
             if (env.IsDevelopment())
-            {               
+            {
                 app.UseDeveloperExceptionPage();
             }
             else
