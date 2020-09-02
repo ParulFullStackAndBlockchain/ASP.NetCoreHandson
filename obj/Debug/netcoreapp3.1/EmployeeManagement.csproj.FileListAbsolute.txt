@@ -145,8 +145,6 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.AssemblyInfoInputs.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.AssemblyInfo.cs
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csproj.CoreCompileInputs.cache
-C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorAssemblyInfo.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorAssemblyInfo.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.TagHelpers.input.cache
@@ -173,3 +171,9 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManag
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\NotFound.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csprojAssemblyReference.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\nlog.config
+C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csproj.CoreCompileInputs.cache
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cache

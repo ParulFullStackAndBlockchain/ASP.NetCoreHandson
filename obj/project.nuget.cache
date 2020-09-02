@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YH5UpWdvXBs9BDdf4GIcDKKAZyZW8NJMR/UyOUGitiWTl2GaayU6axFMZ1s4KnJeBp7JC3TjQqs5Jhm9XpYWiQ==",
+  "dgSpecHash": "jax/Jkcfk901ZK+wQcqnXdHmW+ZXGpVqC4NtX07+9szYHK7WRsbqDeQF/Gp1ZP/+0fOyliqHCBwxktCSBVA32A==",
   "success": true,
   "projectFilePath": "C:\\Parul\\ASPDotNet_Core\\EmployeeManagement\\EmployeeManagement.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,9 @@
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\nlog\\4.7.2\\nlog.4.7.2.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\nlog.extensions.logging\\1.6.4\\nlog.extensions.logging.1.6.4.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\nlog.web.aspnetcore\\4.9.3\\nlog.web.aspnetcore.4.9.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
