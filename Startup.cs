@@ -36,8 +36,23 @@ namespace EmployeeManagement
             services.AddMvc(option => option.EnableEndpointRouting = false).AddXmlSerializerFormatters();
 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
-           
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
+            //Override password default settings while adding Identity services 
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 7;
+                options.Password.RequiredUniqueChars = 2;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<AppDbContext>();
+
+            //Override password default settings using the Configure() method of the IServiceCollection interface
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    options.Password.RequiredLength = 7;
+            //    options.Password.RequiredUniqueChars = 2;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
