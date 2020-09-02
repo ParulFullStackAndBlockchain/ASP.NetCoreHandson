@@ -182,3 +182,4 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\Microsoft.Ext
 C:\Parul\ASPDotNet_Core\EmployeeManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csproj.CoreCompileInputs.cache
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cache
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
