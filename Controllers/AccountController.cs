@@ -65,12 +65,6 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
-        //If you do not have [AllowAnonymous] attribute on the Login and other actions that requires anonymous accessor other
-        //actions that require anonymous access you will get the following error because the application is stuck in an 
-        //infinite loop : HTTP Error 404.15 - Not Found.
-        //The request filtering module is configured to deny a request where the query string is too long.
-        //Most likely causes:
-        //Request filtering is configured on the Web server to deny the request because the query string is too long.
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -80,7 +74,7 @@ namespace EmployeeManagement.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +83,17 @@ namespace EmployeeManagement.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        //Redirects the user to the specified returnUrl
+                        //Note: This opens a serious security hole with in our application which is commonly known as 
+                        //open redirect vulnerability. 
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("index", "home");
+                    }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

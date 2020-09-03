@@ -38,12 +38,10 @@ namespace EmployeeManagement
             //services.AddMvc(option => option.EnableEndpointRouting = false).AddXmlSerializerFormatters();
 
             services.AddMvc(config => {
-                //To apply [Authorize] attribute globally on all controllers and controller actions throughout your application
                 var policy = new AuthorizationPolicyBuilder()
                                 .RequireAuthenticatedUser()
                                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
-
                 config.EnableEndpointRouting = false;
             });
 
