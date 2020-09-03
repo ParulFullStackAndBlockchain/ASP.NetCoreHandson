@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +24,14 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -62,13 +65,21 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
+        //If you do not have [AllowAnonymous] attribute on the Login and other actions that requires anonymous accessor other
+        //actions that require anonymous access you will get the following error because the application is stuck in an 
+        //infinite loop : HTTP Error 404.15 - Not Found.
+        //The request filtering module is configured to deny a request where the query string is too long.
+        //Most likely causes:
+        //Request filtering is configured on the Web server to deny the request because the query string is too long.
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
