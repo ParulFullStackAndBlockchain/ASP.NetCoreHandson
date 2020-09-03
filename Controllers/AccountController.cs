@@ -83,11 +83,15 @@ namespace EmployeeManagement.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    //To prevent open redirect attacks, check if the provided URL is a local URL or you are only redirecting 
+                    //to known trusted websites.
+
+                    //To check if the provided URL is a local URL, use IsLocalUrl() method.
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
-                        //Redirects the user to the specified returnUrl
-                        //Note: This opens a serious security hole with in our application which is commonly known as 
-                        //open redirect vulnerability. 
+                        //Note: In place of IsLocalUrl() method you can also use the LocalRedirect() method
+                        //return LocalRedirect(returnUrl);
+
                         return Redirect(returnUrl);
                     }
                     else
