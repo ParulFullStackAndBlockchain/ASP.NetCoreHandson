@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmployeeManagement.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,9 +12,8 @@ namespace EmployeeManagement.Models
     {        
         [Required]
         [EmailAddress]
-        //Notice, we have decorated the Email property with the [Remote] attribute pointing it to the action method
-        //that should be invoked when the email value changes.
         [Remote(action: "IsEmailInUse", controller: "Account")]
+        [ValidEmailDomain(allowedDomain: "godigitalpro.com", ErrorMessage = "Email domain must be godigitalpro.com")]
         public string Email { get; set; }
 
         [Required]
