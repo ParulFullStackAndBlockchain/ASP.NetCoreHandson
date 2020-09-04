@@ -11,13 +11,13 @@ namespace EmployeeManagement.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         //UserManager<IdentityUser> class contains the required methods to manage users in the underlying data store.
         //SignInManager<IdentityUser> class contains the required methods for users signin.
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -52,11 +52,16 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Copy data from RegisterViewModel to IdentityUser
-                var user = new IdentityUser
+                // Copy data from RegisterViewModel to IdentityUser or the extended class ApplicationUser 
+                var user = new ApplicationUser
                 {
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    //1.Populate City property of ApplicationUser instance which is then passed to the CreateAsync() 
+                    //method of UserManager class.
+                    //2.The data in the ApplicationUser instance is then saved to the AspNetUsers table by the 
+                    //IdentityDbContext class.
+                    City = model.City
                 };
 
                 // Store user data in AspNetUsers database table

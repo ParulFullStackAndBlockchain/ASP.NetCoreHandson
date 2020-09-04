@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20200830144229_AddPhotoPathToEmployees.Designer.cs" />
     <Compile Remove="Migrations\20200830144643_AddPhotoPathToEmployees.cs" />
     <Compile Remove="Migrations\20200830144643_AddPhotoPathToEmployees.Designer.cs" />
+    <Compile Remove="Migrations\20200904140946_Extend_IdentityUser.cs" />
+    <Compile Remove="Migrations\20200904140946_Extend_IdentityUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

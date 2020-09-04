@@ -47,7 +47,7 @@ namespace EmployeeManagement
 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
  
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 2;
