@@ -39,7 +39,7 @@ namespace EmployeeManagement.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("ListRoles", "Administration");
                 }
 
                 foreach (IdentityError error in result.Errors)
@@ -50,13 +50,13 @@ namespace EmployeeManagement.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ListRoles()
+        {
+            var roles = roleManager.Roles;
+            return View(roles);
+        }
     }
 }
-//1. To create a user in asp.net core we use UserManager class. Similarly, to create a role, we use RoleManager class 
-//      provided by asp.net core
-//2. The built-in IdentityRole class represents a Role
-//3. RoleManager class performs all the CRUD operations i.e Creating, Reading, Updating and Deleting roles from the 
-//      underlying database table AspNetRoles
-//4. To tell the RoleManager class to work with IdentityRole class, we specify IdentityRole class as the generic argument 
-//      to RoleManager 
-//5. RoleManager is made available to any controller or view by asp.net core dependency injection system
+
