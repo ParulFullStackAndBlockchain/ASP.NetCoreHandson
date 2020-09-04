@@ -8,10 +8,11 @@
 
     <environment include="Development">
         <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-        @*Unobtrusive Validation allows us to take the already-existing server side validation attributes and use them to
-        implement client-side validation.
-        The unobtrusive validation is done using the jquery.validate.unobtrusive.js library. This library is built on top 
-        of jquery.validate.js library, which in turns uses jQuery. *@
+        @*jQuery.js, jquery.validate.js and jquery.validate.unobtrusive.js libraries are required in the order specified
+            for the remote validation to work. If any of them are missing or not loaded in the order specified, 
+            remote validation will not work.
+        Also note since the libraries are loaded for development environment the remote validation will work for 
+            development environment only*@
         <script src="~/lib/jquery/jquery.js"></script>
         <script src="~/lib/jquery-validate/jquery.validate.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

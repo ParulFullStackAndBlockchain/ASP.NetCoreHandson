@@ -23,6 +23,30 @@ namespace EmployeeManagement.Controllers
             this.signInManager = signInManager;
         }
 
+
+        //Remote validation allows a controller action method to be called using client side script. This is very useful
+        //when you want to call a server side method without a full page post back.
+        //1. This method should respond to both HTTP GET and POST.This is the reason we specified both the HTTP verbs 
+        //  (Get and Post) using [AcceptVerbs] attribute.
+        //2. ASP.NET Core MVC uses jQuery remote() method which in turn issues an AJAX call to invoke the server side method.
+        //3. The jQuery remote() method expects a JSON response, this is the reason we are returning JSON response from the
+        //   server-side method (IsEmailInUse)
+        [AcceptVerbs("Get", "Post")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"Email {email} is already in use.");//Use of C# 6 string interpolation
+            }
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()

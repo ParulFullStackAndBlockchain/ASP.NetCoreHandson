@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,9 +8,12 @@ using System.Threading.Tasks;
 namespace EmployeeManagement.Models
 {
     public class RegisterViewModel
-    {
+    {        
         [Required]
         [EmailAddress]
+        //Notice, we have decorated the Email property with the [Remote] attribute pointing it to the action method
+        //that should be invoked when the email value changes.
+        [Remote(action: "IsEmailInUse", controller: "Account")]
         public string Email { get; set; }
 
         [Required]
