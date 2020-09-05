@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -19,12 +21,16 @@ namespace EmployeeManagement.Controllers
             this.userManager = userManager;
         }
 
+        //test@godigitalpro.com, test1@godigitalpro.com can access
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
         }
 
+        //test@godigitalpro.com, test1@godigitalpro.com can access
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
@@ -53,6 +59,8 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
+        //All loggedin users can access eg : test4@godigitalpro.com
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ListRoles()
         {
@@ -60,6 +68,7 @@ namespace EmployeeManagement.Controllers
             return View(roles);
         }
 
+        //test@godigitalpro.com, test1@godigitalpro.com, test2@godigitalpro.com and test2@godigitalpro.com can access
         // Role ID is passed from the URL to the action
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
@@ -97,6 +106,7 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
+        //test@godigitalpro.com, test1@godigitalpro.com, test2@godigitalpro.com and test2@godigitalpro.com can access
         // This action responds to HttpPost and receives EditRoleViewModel
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
@@ -129,6 +139,9 @@ namespace EmployeeManagement.Controllers
             }
         }
 
+        //Only test@godigitalpro.com can access
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
@@ -167,6 +180,9 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
+        //Only test@godigitalpro.com can access
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
