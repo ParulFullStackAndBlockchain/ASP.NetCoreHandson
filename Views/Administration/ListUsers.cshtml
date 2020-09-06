@@ -24,9 +24,25 @@
             </div>
             <div class="card-footer">
                 <form method="post" asp-action="DeleteUser" asp-route-id="@user.Id">
-                    <a asp-action="EditUser" asp-controller="Administration"
+                    <a asp-controller="Administration" asp-action="Edituser"
                        asp-route-id="@user.Id" class="btn btn-primary">Edit</a>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+
+                    @*The span elements that surround the Delete, Yes and No buttons will be dynamically generated for 
+                        every user on the list page.
+                      If you have more than one user on the page there will be more than one span element
+                      To ensure these span elements have unique ID's we are appending User.Id which is a Guid and
+                        guaranteed to be unique*@
+                    <span id="confirmDeleteSpan_@user.Id" style="display:none">
+                        <span>Are you sure you want to delete?</span>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a href="#" class="btn btn-primary"
+                           onclick="confirmDelete('@user.Id', false)">No</a>
+                    </span>
+
+                    <span id="deleteSpan_@user.Id">
+                        <a href="#" class="btn btn-danger"
+                           onclick="confirmDelete('@user.Id', true)">Delete</a>
+                    </span>
                 </form>
             </div>
         </div>
@@ -49,3 +65,9 @@ else
         </div>
     </div>
 }
+
+@*This is to include CustomScript.js file which contains confirmDelete() function on ListUsers view*@
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+}
+
