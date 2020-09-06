@@ -55,6 +55,14 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
+        //Note : The registered users of our application are stored in AspNetUsers identity database table.
+        [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = userManager.Users;
+            return View(users);
+        }
+
         [HttpGet]
         public IActionResult ListRoles()
         {
