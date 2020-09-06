@@ -277,6 +277,38 @@ namespace EmployeeManagement.Controllers
                 return View(model);
             }
         }
+
+        //Deleting data using a GET request is not recommended. 1. Just imagine what can happen if there is an image tag 
+        //in a malicious email like <img src="http://localhost/Administration/DeleteUser/123" />.The moment we open the email,
+        //the image tries to load and issues a GET request, which would delete the data.
+        //2. Also, when search engines index your page, they issue a GET request which would delete the data. 
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListUsers");
+            }
+        }
     }
 }
 
