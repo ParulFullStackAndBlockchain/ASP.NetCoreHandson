@@ -20,7 +20,18 @@ namespace EmployeeManagement.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {           
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Seed();           
+            modelBuilder.Seed();
+
+            //In Entity Framework Core, by default the foreign keys in AspNetUserRoles table have Cascade 
+            //DELETE behaviour. This means, if a record in the parent table (AspNetRoles) is deleted, then the 
+            //corresponding records in the child table (AspNetUserRoles ) are automatically be deleted.
+
+            //Following lines of code are to not allow a role to be deleted, if there are rows in the child table 
+            //(AspNetUserRoles) which point to a role in the parent table (AspNetRoles).
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }
