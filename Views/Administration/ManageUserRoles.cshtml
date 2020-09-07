@@ -10,17 +10,32 @@
             <h2>Manage User Roles</h2>
         </div>
         <div class="card-body">
+
             @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                        <input type="hidden" asp-for="@Model[i].RoleName" />
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                        <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                            @Model[i].RoleName
+                        </label>
+                    </div>
+                }
+
+            @*Using foreach loop instead of a for loop*@
+            @*@foreach (var role in Model)
             {
                 <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model[i].RoleId" />
-                    <input type="hidden" asp-for="@Model[i].RoleName" />
-                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
-                        @Model[i].RoleName
+                    <input type="hidden" asp-for="@role.RoleId" />
+                    <input type="hidden" asp-for="@role.RoleName" />
+                    <input asp-for="@role.IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@role.IsSelected">
+                        @role.RoleName
                     </label>
                 </div>
-            }
+            }*@
+
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
         <div class="card-footer">
@@ -31,3 +46,17 @@
         </div>
     </div>
 </form>
+
+@*Using a for loop to loop through each UserRolesViewModel object
+          The attributes of the input elements have an integer indexer, so the model binder in asp.net mvc knows it has to map
+          these values to the list parameter on the controller action.
+
+      Using a foreach loop instead of a for loop.
+          The attributes of the input elements are not unique and there is no integer indexer, so the model binder does not
+          know it has to bind the values from these input elements to the list parameter on the controller action.
+          This is the reason the list parameter on the controller action is empty.
+
+      Also notice, the ids of the checkboxes are not unique. The for attribute value of the labels are also not unique. 
+        As a result, when we click on the labels, only the first checkbox gets checked or unchecked.
+
+      For the ID and Name attribute values to be unique, use a for loop instead of a foreach loop.  *@
