@@ -6,6 +6,8 @@ using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
@@ -14,11 +16,14 @@ namespace EmployeeManagement.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<AdministrationController> logger;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager,
+            ILogger<AdministrationController> logger)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -209,7 +214,12 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        [HttpPost]
+        //1. This action deletes a role. 
+        //2. If there are users in the role, this action throws an exception
+        //3. If there is an unhandled exception and if the application is running in any environment except Development, 
+        //the user is redirected to ErrorController which displays the custom Error view.UseExceptionHandler middleware 
+        //redirects the request to Error controller.
+       [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -221,19 +231,40 @@ namespace EmployeeManagement.Controllers
             }
             else
             {
-                var result = await roleManager.DeleteAsync(role);
-
-                if (result.Succeeded)
+                // Wrap the code in a try/catch block
+                try
                 {
-                    return RedirectToAction("ListRoles");
-                }
+                    //This is added to verify that generic error is displayed via error.cshtml view when the exception thrown
+                    //is different from DbUpdateException type exception.
+                    //throw new Exception("Test Exception");
 
-                foreach (var error in result.Errors)
+                    var result = await roleManager.DeleteAsync(role);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ListRoles");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View("ListRoles");
+                }
+                // If the exception is DbUpdateException, we know we are not able to
+                // delete the role as there are users in the role being deleted
+                catch (DbUpdateException ex)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    //Log the exception to a file. 
+                    logger.LogError($"Exception Occured : {ex}");
+                    // Pass the ErrorTitle and ErrorMessage that you want to show to
+                    // the user using ViewBag. The Error view retrieves this data
+                    // from the ViewBag and displays to the user.
+                    ViewBag.ErrorTitle = $"{role.Name} role is in use";
+                    ViewBag.ErrorMessage = $"{role.Name} role cannot be deleted as there are users in this role. If you want to delete this role, please remove the users from the role and then try to delete";
+                    return View("Error");
                 }
-
-                return View("ListRoles");
             }
         }
 
