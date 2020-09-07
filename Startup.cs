@@ -45,6 +45,19 @@ namespace EmployeeManagement
                 config.EnableEndpointRouting = false;
             });
 
+            //Creating Claims Policy
+            //1. The options parameter type is AuthorizationOptions
+            //2. Use AddPolicy() method to create the policy
+            //3. The first parameter is the name of the policy and the second parameter is the policy itself
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role")
+                    //Adding Multiple Claims to Policy: To add multiple claims to a given policy, chain RequireClaim() method
+                                    .RequireClaim("Create Role")
+                    );
+            });
+
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
  
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>

@@ -338,11 +338,9 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        //Deleting data using a GET request is not recommended. 1. Just imagine what can happen if there is an image tag 
-        //in a malicious email like <img src="http://localhost/Administration/DeleteUser/123" />.The moment we open the email,
-        //the image tries to load and issues a GET request, which would delete the data.
-        //2. Also, when search engines index your page, they issue a GET request which would delete the data. 
+        //To satisfy this policy requirements, the logged -in user must have Delete Role as well as Create Role claim
         [HttpPost]
+        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
