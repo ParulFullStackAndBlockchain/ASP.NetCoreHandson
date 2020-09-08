@@ -12,8 +12,8 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Policy = "AdminRolePolicy")]
-    //[Authorize(Roles = "Admin")]
+    //[Authorize(Policy = "AdminRolePolicy")]
+    [Authorize(Roles = "Admin, Super Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

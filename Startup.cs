@@ -56,13 +56,20 @@ namespace EmployeeManagement
                     policy => policy.RequireClaim("Delete Role", "true")
                     );
 
-                options.AddPolicy("EditRolePolicy",
-                    //Most claims come with a value. To satisfy this policy the loggedin user must have Edit Role claim 
-                    //with a value of true.
-                    //Note: 1. ClaimType comparison is case in-sensitive where as ClaimValue comparison is case sensitive.
-                    //2. A list of allowed values can also be specified.
-                    policy => policy.RequireClaim("Edit Role", "true")
-                    );
+                //options.AddPolicy("EditRolePolicy",
+                //    policy => policy.RequireClaim("Edit Role", "true")
+                //    );
+
+                //Our Requirement 'To be able to edit a given role, the logged-in user must be
+                //Member of the Admin role AND have Edit Role claim with a value of true 
+                //OR
+                //Member of the Super Admin role'
+                //Here we are using a func to create a custom policy that meets our authorization need.
+                options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") &&
+                    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                    ));
 
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
