@@ -69,8 +69,6 @@ namespace EmployeeManagement.Controllers
             return View(roles);
         }
 
-        //Note: It's not enough if we just show or hide UI elements on the view. The respective controller actions must 
-        //also be protected. Otherwise, the user can directly type the URL in the address bar and access the resources.
         [HttpGet]
         [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
@@ -512,6 +510,13 @@ namespace EmployeeManagement.Controllers
 
             return RedirectToAction("EditUser", new { Id = model.UserId });
 
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

@@ -24,7 +24,6 @@
             </div>
             <div class="card-footer">
                 <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
-                    @*To check if the signed-in user satisfies EditRolePolicy*@
                     @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
                     {
                         <a asp-controller="Administration" asp-action="EditRole" asp-route-id="@role.Id"
