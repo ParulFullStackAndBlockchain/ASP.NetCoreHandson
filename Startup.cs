@@ -53,11 +53,15 @@ namespace EmployeeManagement
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DeleteRolePolicy",
-                    policy => policy.RequireClaim("Delete Role")
+                    policy => policy.RequireClaim("Delete Role", "true")
                     );
 
                 options.AddPolicy("EditRolePolicy",
-                    policy => policy.RequireClaim("Edit Role")
+                    //Most claims come with a value. To satisfy this policy the loggedin user must have Edit Role claim 
+                    //with a value of true.
+                    //Note: 1. ClaimType comparison is case in-sensitive where as ClaimValue comparison is case sensitive.
+                    //2. A list of allowed values can also be specified.
+                    policy => policy.RequireClaim("Edit Role", "true")
                     );
 
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
