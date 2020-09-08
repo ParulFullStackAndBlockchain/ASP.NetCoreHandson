@@ -56,6 +56,11 @@ namespace EmployeeManagement
                     //Adding Multiple Claims to Policy: To add multiple claims to a given policy, chain RequireClaim() method
                                     .RequireClaim("Create Role")
                     );
+
+                //In ASP.NET Core, a role is just a claim with type Role. 
+                //We know claims are policy based. Since, a role is also a claim of type role, we can also use a role with the 
+                //new policy syntax. We can create a policy and include one or more roles in that policy.
+                options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();

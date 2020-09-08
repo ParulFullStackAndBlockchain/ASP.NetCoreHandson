@@ -12,7 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //The policy made for claim with type Role can be used on a controller or a controller action.
+    [Authorize(Policy = "AdminRolePolicy")]
+    //[Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -215,12 +217,9 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        //1. This action deletes a role. 
-        //2. If there are users in the role, this action throws an exception
-        //3. If there is an unhandled exception and if the application is running in any environment except Development, 
-        //the user is redirected to ErrorController which displays the custom Error view.UseExceptionHandler middleware 
-        //redirects the request to Error controller.
-       [HttpPost]
+        //To satisfy this policy requirements, the logged -in user must have Delete Role as well as Create Role claim
+        [HttpPost]
+        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -338,9 +337,7 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        //To satisfy this policy requirements, the logged -in user must have Delete Role as well as Create Role claim
         [HttpPost]
-        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await userManager.FindByIdAsync(id);
