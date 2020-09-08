@@ -45,21 +45,16 @@ namespace EmployeeManagement
                 config.EnableEndpointRouting = false;
             });
 
-            //Creating Claims Policy
-            //1. The options parameter type is AuthorizationOptions
-            //2. Use AddPolicy() method to create the policy
-            //3. The first parameter is the name of the policy and the second parameter is the policy itself
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DeleteRolePolicy",
                     policy => policy.RequireClaim("Delete Role")
-                    //Adding Multiple Claims to Policy: To add multiple claims to a given policy, chain RequireClaim() method
-                                    .RequireClaim("Create Role")
                     );
 
-                //In ASP.NET Core, a role is just a claim with type Role. 
-                //We know claims are policy based. Since, a role is also a claim of type role, we can also use a role with the 
-                //new policy syntax. We can create a policy and include one or more roles in that policy.
+                options.AddPolicy("EditRolePolicy",
+                    policy => policy.RequireClaim("Edit Role")
+                    );
+
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 

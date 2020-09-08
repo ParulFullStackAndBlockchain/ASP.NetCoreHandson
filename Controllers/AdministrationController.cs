@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
-    //The policy made for claim with type Role can be used on a controller or a controller action.
     [Authorize(Policy = "AdminRolePolicy")]
     //[Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
@@ -70,7 +69,10 @@ namespace EmployeeManagement.Controllers
             return View(roles);
         }
 
+        //Note: It's not enough if we just show or hide UI elements on the view. The respective controller actions must 
+        //also be protected. Otherwise, the user can directly type the URL in the address bar and access the resources.
         [HttpGet]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
             // Find the role by Role ID
@@ -107,6 +109,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await roleManager.FindByIdAsync(model.Id);
@@ -217,7 +220,6 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        //To satisfy this policy requirements, the logged -in user must have Delete Role as well as Create Role claim
         [HttpPost]
         [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> DeleteRole(string id)
