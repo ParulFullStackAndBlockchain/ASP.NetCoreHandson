@@ -55,21 +55,20 @@ namespace EmployeeManagement
             {
                 options.AddPolicy("DeleteRolePolicy",
                     policy => policy.RequireClaim("Delete Role", "true")
-                    );               
+                    );
+
+                options.AddPolicy("EditRolePolicy", policy =>
+                   policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
+
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
-
-            //Step3 : Authorization handler registration
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("EditRolePolicy", policy =>
-                    policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
-            });
-
+           
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
 
-            //Step3 : Authorization handler registration
+            // Register the first handler
             services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
+            // Register the second handler
+            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

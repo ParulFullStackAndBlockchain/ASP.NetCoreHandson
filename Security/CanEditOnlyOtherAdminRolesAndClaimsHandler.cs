@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
 {
-    //Step2: Creating a custom authorization handler
+    //Custom requirement handler - 1 that handles the first condition of our requirement.
     public class CanEditOnlyOtherAdminRolesAndClaimsHandler : AuthorizationHandler<ManageAdminRolesAndClaimsRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,

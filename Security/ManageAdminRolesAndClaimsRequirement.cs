@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
 {
-    //Application Authorization Requirement
-    //An Admin user can manage other Admin user roles and claims but not their own claims and role.
-    //To achieve this, we need to know the logged-in UserID and the UserId of the Admin being edited. If they are the same we 
-    //do not want to allow access. The admin UserID being edited is passed in the URL as a query string parameter.
+    //Requirement: One of the following 2 conditions must be met for a logged-in user to be able to manage user roles and claims.
+    //Codition 1 :
+    //The user must be in the Admin role AND has Edit Role claim type with a claim value of true
+    //AND
+    //the logged-in user Id must NOT BE EQUAL TO the Id of the Admin user being edited
+    //Condition 2 : 
+    //The user must be in the Super Admin role
 
-    //Note:  A func cannot be used to satisfy our authorization requirement here because we need to access the query string 
-    //parameter. Also as your authorization requirements get complex, you may need access to other services via 
-    //dependency injection. In situations like these we create custom requirements and handlers.
+    //Note: We implement multiple handlers for a given single requirement, when we have cases where want the evaluation to be on 
+    //an OR basis. 
 
-    //Step1: Creating a custom authorization requirement
     public class ManageAdminRolesAndClaimsRequirement : IAuthorizationRequirement
     {
     }

@@ -12,7 +12,8 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Policy = "AdminRolePolicy")]
+    [Authorize (Roles = "Admin, Super Admin")]
+    //[Authorize(Policy = "AdminRolePolicy")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -362,7 +363,6 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        //Step4: Using the custom policy to protect the resources like controller action methods
         [HttpGet]
         [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> ManageUserRoles(string userId)
