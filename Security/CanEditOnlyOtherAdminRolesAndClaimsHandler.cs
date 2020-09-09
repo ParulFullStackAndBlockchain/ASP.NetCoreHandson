@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
 {
-    //Custom requirement handler - 1 that handles the first condition of our requirement.
     public class CanEditOnlyOtherAdminRolesAndClaimsHandler : AuthorizationHandler<ManageAdminRolesAndClaimsRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -37,6 +36,14 @@ namespace EmployeeManagement.Security
                 adminIdBeingEdited.ToLower() != loggedInAdminId.ToLower())
             {
                 context.Succeed(requirement);
+            }
+            else
+            {
+                //  1. When one of the handlers return failure, the policy fails even if the other handlers return success.
+                //  2. If none of the handlers return an explicit success, the policy will not succeed.
+                //  3. For a policy to succeed, an explicit success must be returned from one of the handlers, and no other 
+                //      handler must return an explicit failure.         
+                context.Fail();
             }
 
             return Task.CompletedTask;

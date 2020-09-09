@@ -5,8 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
-{
-    //Custom requirement handler - 2 that handles the second condition of our requirement.
+{   
     public class SuperAdminHandler : AuthorizationHandler<ManageAdminRolesAndClaimsRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,

@@ -60,14 +60,19 @@ namespace EmployeeManagement
                 options.AddPolicy("EditRolePolicy", policy =>
                    policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
 
+                //By default, all handlers are called, irrespective of what a handler returns(success, failure or nothing).
+                //This is because in the other handlers, there might be something else going on besides evaluating requirements, 
+                //may be logging for example.
+                //If you do not want the rest of the handlers to be called, when a failure is returned, set 
+                //InvokeHandlersAfterFailure property to false.The default is true.
+                options.InvokeHandlersAfterFailure = false;
+
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
            
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
 
-            // Register the first handler
             services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
-            // Register the second handler
             services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
