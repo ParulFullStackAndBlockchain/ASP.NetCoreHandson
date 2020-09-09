@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using EmployeeManagement.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,28 +55,22 @@ namespace EmployeeManagement
             {
                 options.AddPolicy("DeleteRolePolicy",
                     policy => policy.RequireClaim("Delete Role", "true")
-                    );
-
-                //options.AddPolicy("EditRolePolicy",
-                //    policy => policy.RequireClaim("Edit Role", "true")
-                //    );
-
-                //Our Requirement 'To be able to edit a given role, the logged-in user must be
-                //Member of the Admin role AND have Edit Role claim with a value of true 
-                //OR
-                //Member of the Super Admin role'
-                //Here we are using a func to create a custom policy that meets our authorization need.
-                options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
-                    context.User.IsInRole("Admin") &&
-                    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
-                    context.User.IsInRole("Super Admin")
-                    ));
-
+                    );               
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 
+            //Step3 : Authorization handler registration
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EditRolePolicy", policy =>
+                    policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
+            });
+
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
- 
+
+            //Step3 : Authorization handler registration
+            services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
+
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 7;
