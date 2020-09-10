@@ -96,9 +96,15 @@ namespace EmployeeManagement.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login(string returnUrl)
         {
-            return View();
+            LoginViewModel model = new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -133,6 +139,21 @@ namespace EmployeeManagement.Controllers
             }
 
             return View(model);
+        }
+
+        //Since the button name is set to provider, asp.net core model binding maps the provider name which is Google 
+        //to provider parameter on the ExternalLogin action.
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
+                                new { ReturnUrl = returnUrl });
+            // GetExternalAuthenticationSchemesAsync() method of SignInManager service, returns the list of all 
+            // configured external identity providers like (Google, Facebook etc).
+            var properties = signInManager
+                .ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
         }
 
         [HttpPost]

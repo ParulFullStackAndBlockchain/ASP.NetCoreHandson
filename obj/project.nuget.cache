@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "NAGBsbMRG+KTSzU6cNsQyCNLh8U/Qgl4VEInAIu+0BPHX6By5z2gVzvxvz0JKyHM6WJJsUmWmA9vJbsumN3d9w==",
+  "dgSpecHash": "L9rXkL0V5ljLs5sSo7j7mgFeH4rRAS5ilKwMXgvS6XRwr73+p7pj/SnOJaiTRCXERsnQVuKC/GXg2eghHlW6mw==",
   "success": true,
   "projectFilePath": "C:\\Parul\\ASPDotNet_Core\\EmployeeManagement\\EmployeeManagement.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\3.1.8\\microsoft.aspnetcore.authentication.facebook.3.1.8.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\3.1.8\\microsoft.aspnetcore.authentication.google.3.1.8.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.7\\microsoft.aspnetcore.cryptography.internal.3.1.7.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.7\\microsoft.aspnetcore.cryptography.keyderivation.3.1.7.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

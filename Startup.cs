@@ -46,6 +46,13 @@ namespace EmployeeManagement
                 config.EnableEndpointRouting = false;
             });
 
+            //Below code is required for Google authentication
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "32903204562-5rqdk7kqd7f84dbodcsl61g0kpmh24kk.apps.googleusercontent.com";
+                options.ClientSecret = "6LMZWb3nBoH4_sLmxAMGwvM1";
+            });
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
@@ -59,13 +66,6 @@ namespace EmployeeManagement
 
                 options.AddPolicy("EditRolePolicy", policy =>
                    policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
-
-                //By default, all handlers are called, irrespective of what a handler returns(success, failure or nothing).
-                //This is because in the other handlers, there might be something else going on besides evaluating requirements, 
-                //may be logging for example.
-                //If you do not want the rest of the handlers to be called, when a failure is returned, set 
-                //InvokeHandlersAfterFailure property to false.The default is true.
-                options.InvokeHandlersAfterFailure = false;
 
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });

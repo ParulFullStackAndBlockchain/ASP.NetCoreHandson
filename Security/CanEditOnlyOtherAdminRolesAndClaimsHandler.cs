@@ -37,15 +37,7 @@ namespace EmployeeManagement.Security
             {
                 context.Succeed(requirement);
             }
-            else
-            {
-                //  1. When one of the handlers return failure, the policy fails even if the other handlers return success.
-                //  2. If none of the handlers return an explicit success, the policy will not succeed.
-                //  3. For a policy to succeed, an explicit success must be returned from one of the handlers, and no other 
-                //      handler must return an explicit failure.         
-                context.Fail();
-            }
-
+            
             return Task.CompletedTask;
         }
     }
