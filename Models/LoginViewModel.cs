@@ -26,6 +26,6 @@ namespace EmployeeManagement.Models
 
         //ExternalLogins property stores the list of external logins (like Facebook, Google etc) that are enabled 
         //in our application.
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }       
     }
 }
