@@ -142,8 +142,9 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
-        //Since the button name is set to provider, asp.net core model binding maps the provider name which is Google 
-        //to provider parameter on the ExternalLogin action.
+        //When the Facebook button is clicked, our asp.net core application must redirect the request to Facebook 
+        //for authentication. This is done by ExternalLogin() action in AccountController. The code in this method is 
+        //written in a generic way, so it works for both Google and Facebook authentication.
         [AllowAnonymous]
         [HttpPost]
         public IActionResult ExternalLogin(string provider, string returnUrl)
@@ -157,8 +158,9 @@ namespace EmployeeManagement.Controllers
             return new ChallengeResult(provider, properties);
         }
 
-        // Upon successful authentication, Google redirects the user back to our application and the following
-        // action is executed.
+        // After the user is successfully authenticated by Facebook, the request is redirected back to our application, 
+        //and the following ExternalLoginCallback() action in AccountController is executed. The code in this method is 
+        //also written in a generic way, so it works for both Google and Facebook authentication.
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {

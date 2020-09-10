@@ -47,11 +47,18 @@ namespace EmployeeManagement
             });
 
             //Below code is required for Google authentication
-            services.AddAuthentication().AddGoogle(options =>
+            services.AddAuthentication()
+            .AddGoogle(options =>
             {
                 options.ClientId = "32903204562-5rqdk7kqd7f84dbodcsl61g0kpmh24kk.apps.googleusercontent.com";
                 options.ClientSecret = "6LMZWb3nBoH4_sLmxAMGwvM1";
-            });
+            })
+            //Facebook authentication in ASP.NET core.
+            .AddFacebook(options =>
+            {
+                options.AppId = "662285651334907";
+                options.AppSecret = "5c0c48d89a90d26cc8e4fa9e31aa112b";
+            }); 
 
             services.ConfigureApplicationCookie(options =>
             {
