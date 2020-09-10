@@ -5,7 +5,8 @@
 	  
 	  <!-- With InProcess hosting, the application is hosted in the IIS worker process (w3wp.exe or iisexpress.exe). 
 	  With InProcess hosting, there is only one web server and that is the IIS server that hosts our application.-->
-	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel> 
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+	<UserSecretsId>1adea1e7-76d0-49a8-813e-73bdcd1efc4e</UserSecretsId> 
 	  
 	  <!-- With out of process hosting.There are 2 web servers - An an internal web server and an external web server.
 		The internal web server is Kestrel and the external web server can be IIS, Nginx or Apache. -->
