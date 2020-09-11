@@ -112,8 +112,32 @@ namespace EmployeeManagement.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            model.ExternalLogins =
+                        (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                //When RequireConfirmedEmail property is set to true and the email address is not confirmed yet. 
+                //If we now use the SignInManager service PasswordSignInAsync() method to sign-in the user we get NotAllowed 
+                //as the result, even if we supply the correct username and password.
+                //Similarly, if we use ExternalLoginSignInAsync() method to sign-in the user using an external login provider 
+                //like Facebook, Google etc. If the email address associated with external login account is not confirmed, 
+                //signin result will be NotAllowed.
+
+                //Below lines of code, block the login and displays Email not confirmed yet error. 
+                //The error message is displayed only, if the Email is not confirmed AND the user has provided correct 
+                //username and password. 
+                //Note: We need to check if the user has provided correct username and password to avoid account enumeration
+                //and brute force attacks. 
+                if (user != null && !user.EmailConfirmed &&
+                            (await userManager.CheckPasswordAsync(user, model.Password)))
+                {                    
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                    return View(model);
+                }
+
                 var result = await signInManager.PasswordSignInAsync(
                     model.Email, model.Password, model.RememberMe, false);
 
@@ -181,7 +205,7 @@ namespace EmployeeManagement.Controllers
                 return View("Login", loginViewModel);
             }
 
-            // Get the login information about the user from the external login provider
+            // Get the login information about the user from the external login provider            
             var info = await signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
@@ -189,6 +213,27 @@ namespace EmployeeManagement.Controllers
                     .AddModelError(string.Empty, "Error loading external login information.");
 
                 return View("Login", loginViewModel);
+            }
+
+            // Get the email claim from external login provider (Google, Facebook etc)
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            ApplicationUser user = null;
+
+            if (email != null)
+            {
+                // Find the user
+                user = await userManager.FindByEmailAsync(email);
+
+                // If email is not confirmed, display login view with validation error
+                //Note : With the external login the user does not provide username and password to our application. 
+                //Upon successful authentication, the user is redirected to the ExternalLoginCallback() action in our 
+                //application. So we know the user is already authenticated and hence we display the validation error - 
+                //Email not confirmed, without the need to check if the provided username and password combination is correct.
+                if (user != null && !user.EmailConfirmed)
+                {
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                    return View("Login", loginViewModel);
+                }
             }
 
             // If the user already has a login (i.e if there is a record in AspNetUserLogins
@@ -204,14 +249,8 @@ namespace EmployeeManagement.Controllers
             // a local account
             else
             {
-                // Get the email claim value
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-
                 if (email != null)
-                {
-                    // Create a new user without password if we do not have a user already
-                    var user = await userManager.FindByEmailAsync(email);
-
+                {                    
                     if (user == null)
                     {
                         user = new ApplicationUser

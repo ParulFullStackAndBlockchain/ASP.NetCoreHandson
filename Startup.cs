@@ -86,7 +86,8 @@ namespace EmployeeManagement
             {
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 2;
-                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireNonAlphanumeric = false;                
+                options.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<AppDbContext>();
         }
