@@ -46,14 +46,12 @@ namespace EmployeeManagement
                 config.EnableEndpointRouting = false;
             });
 
-            //Below code is required for Google authentication
             services.AddAuthentication()
             .AddGoogle(options =>
             {
                 options.ClientId = "32903204562-5rqdk7kqd7f84dbodcsl61g0kpmh24kk.apps.googleusercontent.com";
                 options.ClientSecret = "6LMZWb3nBoH4_sLmxAMGwvM1";
             })
-            //Facebook authentication in ASP.NET core.
             .AddFacebook(options =>
             {
                 options.AppId = "662285651334907";
@@ -89,7 +87,12 @@ namespace EmployeeManagement
                 options.Password.RequireNonAlphanumeric = false;                
                 options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<AppDbContext>();
+            .AddEntityFrameworkStores<AppDbContext>()
+            // This generates tokens for email confirmation, password reset, two factor authentication etc.
+            // Note: You should add, either the default token providers or your own custom token providers that can 
+            // generate tokens. Otherwise you would get the following runtime exception.
+            // NotSupportedException: No IUserTwoFactorTokenProvider<TUser> named 'Default' is registered.
+            .AddDefaultTokenProviders();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

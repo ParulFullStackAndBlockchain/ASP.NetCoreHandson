@@ -7,6 +7,7 @@ using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
@@ -14,14 +15,16 @@ namespace EmployeeManagement.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ILogger<AccountController> logger;
 
         //UserManager<IdentityUser> class contains the required methods to manage users in the underlying data store.
         //SignInManager<IdentityUser> class contains the required methods for users signin.
         public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, ILogger<AccountController> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.logger = logger;
         }
 
         [AcceptVerbs("Get", "Post")]
@@ -58,10 +61,6 @@ namespace EmployeeManagement.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    //1.Populate City property of ApplicationUser instance which is then passed to the CreateAsync() 
-                    //method of UserManager class.
-                    //2.The data in the ApplicationUser instance is then saved to the AspNetUsers table by the 
-                    //IdentityDbContext class.
                     City = model.City
                 };
 
@@ -72,6 +71,15 @@ namespace EmployeeManagement.Controllers
                 // SignInManager and redirect to index action of HomeController
                 if (result.Succeeded)
                 {
+                    //Generate email confirmation token
+                    var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    //Build the email confirmation link
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme);
+
+                    logger.Log(LogLevel.Warning, confirmationLink);
+
                     // If the user is signed in and in the Admin role, then it is
                     // the Admin user that is creating a new user. So redirect the
                     // Admin user to ListRoles action
@@ -80,8 +88,10 @@ namespace EmployeeManagement.Controllers
                         return RedirectToAction("ListUsers", "Administration");
                     }
 
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+                    ViewBag.ErrorTitle = "Registration successful";
+                    ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+                            "email, by clicking on the confirmation link we have emailed you";
+                    return View("Error");
                 }
 
                 // If there are any errors, add them to the ModelState object
@@ -93,6 +103,33 @@ namespace EmployeeManagement.Controllers
             }
 
             return View(model);
+        }
+
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("index", "home");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"The User ID {userId} is invalid";
+                return View("NotFound");
+            }
+
+            //Confirming the email
+            var result = await userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return View();
+            }
+
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return View("Error");
         }
 
         [HttpGet]
@@ -119,18 +156,7 @@ namespace EmployeeManagement.Controllers
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
 
-                //When RequireConfirmedEmail property is set to true and the email address is not confirmed yet. 
-                //If we now use the SignInManager service PasswordSignInAsync() method to sign-in the user we get NotAllowed 
-                //as the result, even if we supply the correct username and password.
-                //Similarly, if we use ExternalLoginSignInAsync() method to sign-in the user using an external login provider 
-                //like Facebook, Google etc. If the email address associated with external login account is not confirmed, 
-                //signin result will be NotAllowed.
-
                 //Below lines of code, block the login and displays Email not confirmed yet error. 
-                //The error message is displayed only, if the Email is not confirmed AND the user has provided correct 
-                //username and password. 
-                //Note: We need to check if the user has provided correct username and password to avoid account enumeration
-                //and brute force attacks. 
                 if (user != null && !user.EmailConfirmed &&
                             (await userManager.CheckPasswordAsync(user, model.Password)))
                 {                    
@@ -142,10 +168,7 @@ namespace EmployeeManagement.Controllers
                     model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                {
-                    //To prevent open redirect attacks, check if the provided URL is a local URL or you are only redirecting 
-                    //to known trusted websites.
-
+                {                    
                     //To check if the provided URL is a local URL, use IsLocalUrl() method.
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
@@ -182,9 +205,6 @@ namespace EmployeeManagement.Controllers
             return new ChallengeResult(provider, properties);
         }
 
-        // After the user is successfully authenticated by Facebook, the request is redirected back to our application, 
-        //and the following ExternalLoginCallback() action in AccountController is executed. The code in this method is 
-        //also written in a generic way, so it works for both Google and Facebook authentication.
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
@@ -225,10 +245,6 @@ namespace EmployeeManagement.Controllers
                 user = await userManager.FindByEmailAsync(email);
 
                 // If email is not confirmed, display login view with validation error
-                //Note : With the external login the user does not provide username and password to our application. 
-                //Upon successful authentication, the user is redirected to the ExternalLoginCallback() action in our 
-                //application. So we know the user is already authenticated and hence we display the validation error - 
-                //Email not confirmed, without the need to check if the provided username and password combination is correct.
                 if (user != null && !user.EmailConfirmed)
                 {
                     ModelState.AddModelError(string.Empty, "Email not confirmed yet");
