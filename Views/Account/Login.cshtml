@@ -29,6 +29,9 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <div>
+                <a asp-action="ForgotPassword">Forgot Password?</a>
+            </div>
         </form>
     </div>
     <div class="col-md-6">
@@ -43,14 +46,6 @@
             {
                 <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
                     <div>
-                        @*1. We are looping through each external login provider we have in Model.ExternalLogins
-                        2. For each external login provider a submit button is dynamically generated
-                        3. At the moment we only have one external identity provider configured and that is Google, so we 
-                            get one Submit button.
-                        4. This submit button is inside a form. The form method attribute value is post and 
-                            asp-action attribute value is ExternalLogin
-                        5. So when the submit button is clicked the form is posted to ExternalLogin action in AccountController
-                        6. The login provider is Google, so in the foreach loop, provider.Name returns Google.*@
                         @foreach (var provider in Model.ExternalLogins)
                         {
                             <button type="submit" class="btn btn-primary" style="width:auto"    
@@ -65,15 +60,3 @@
         }
     </div>
     </div>
-
-    @*Session Cookie vs Persistent Cookie
-
-        Upon a successful login, a cookie is issued and this cookie is sent with each request to the server. The server uses
-            this cookie to know that the user is already authenticated and logged-in. This cookie can either be a session cookie
-            or a persistent cookie.
-
-        A session cookie is created and stored within the session instance of the browser. A session cookie does not contain an
-            expiration date and is permanently deleted when the browser window is closed.
-
-        A persistent cookie on the other hand is not deleted when the browser window is closed. It usually has an expiry date
-            and deleted on the date of expiry.*@
