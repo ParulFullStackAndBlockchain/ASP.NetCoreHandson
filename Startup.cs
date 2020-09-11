@@ -88,10 +88,6 @@ namespace EmployeeManagement
                 options.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<AppDbContext>()
-            // This generates tokens for email confirmation, password reset, two factor authentication etc.
-            // Note: You should add, either the default token providers or your own custom token providers that can 
-            // generate tokens. Otherwise you would get the following runtime exception.
-            // NotSupportedException: No IUserTwoFactorTokenProvider<TUser> named 'Default' is registered.
             .AddDefaultTokenProviders();
         }
 
