@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
 {
-    //Requirement: To encrypt and decrypt route values
-
-    // Step1: Create purpose string
     public class DataProtectionPurposeStrings
     {
         public readonly string EmployeeIdRouteValue = "EmployeeIdRouteValue";

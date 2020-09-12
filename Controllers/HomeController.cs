@@ -19,22 +19,14 @@ namespace EmployeeManagement.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IHostingEnvironment hostingEnvironment;
-
-        // Step4:  It is through IDataProtector interface Protect and Unprotect methods,
-        // we encrypt and decrypt respectively
         private readonly IDataProtector protector;
 
-        // Step4: It is the CreateProtector() method of IDataProtectionProvider interface
-        // that creates an instance of IDataProtector. CreateProtector() requires
-        // a purpose string. So both IDataProtectionProvider and the class that
-        // contains our purpose strings are injected using the contructor
         public HomeController(IEmployeeRepository employeeRepository,IHostingEnvironment hostingEnvironment,
                                 IDataProtectionProvider dataProtectionProvider,
                                 DataProtectionPurposeStrings dataProtectionPurposeStrings)
         {
             _employeeRepository = employeeRepository;
             this.hostingEnvironment = hostingEnvironment;
-            // Step4:  Pass the purpose string as a parameter
             this.protector = dataProtectionProvider.CreateProtector(dataProtectionPurposeStrings.EmployeeIdRouteValue);
         }
 
@@ -43,18 +35,15 @@ namespace EmployeeManagement.Controllers
         {
             var model = _employeeRepository.GetAllEmployees().Select(e =>
                         {
-                            // Step5: Encrypt the ID value and store in EncryptedId property
                             e.EncryptedId = protector.Protect(e.Id.ToString());
                             return e;
                         });
             return View(model);
         }
 
-        // Step7: Details view receives the encrypted employee ID
         [AllowAnonymous]
         public ViewResult Details(string id)
         {
-            // Step7: Decrypt the employee id using Unprotect method
             string decryptedId = protector.Unprotect(id);
             int decryptedIntId = Convert.ToInt32(decryptedId);
 

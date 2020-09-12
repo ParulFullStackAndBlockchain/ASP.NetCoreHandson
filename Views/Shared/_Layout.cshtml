@@ -52,10 +52,15 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="home" asp-action="create">Create</a>
                     </li>
-                    @*In the navigation menu we want to display Manage dropdown menu.It should contain 2 options - 
-                    Users and Roles.This dropdown menu should only be displayed if the user is signed-in and in the Admin 
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">
+                            Password
+                        </a>
+                    </li>
+                    @*In the navigation menu we want to display Manage dropdown menu.It should contain 2 options -
+                    Users and Roles.This dropdown menu should only be displayed if the user is signed-in and in the Admin
                     role. Note : This is not working urrently*@
-                    @*@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                @*@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
@@ -82,6 +87,7 @@
                                 Manage Roles
                             </a>
                         </li>
+
                     }
                 </ul>
                 <ul class="navbar-nav ml-auto">

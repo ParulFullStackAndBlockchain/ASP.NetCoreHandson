@@ -96,7 +96,6 @@ namespace EmployeeManagement
 
             services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
             services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
-            // Step2: Register purpose string class with DI container
             services.AddSingleton<DataProtectionPurposeStrings>();
         }
 

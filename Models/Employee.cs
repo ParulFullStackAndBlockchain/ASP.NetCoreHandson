@@ -10,11 +10,8 @@ namespace EmployeeManagement.Models
     public class Employee
     {
         public int Id { get; set; }
-
-        // Step3: Model property to hold encrypted ID
         [NotMapped]
         public string EncryptedId { get; set; }
-
         [Required, MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
         [Display(Name = "Office Email")]
