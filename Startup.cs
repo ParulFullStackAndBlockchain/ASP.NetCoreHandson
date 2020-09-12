@@ -80,8 +80,17 @@ namespace EmployeeManagement
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 2;
                 options.Password.RequireNonAlphanumeric = false;
+
                 options.SignIn.RequireConfirmedEmail = true;
+
                 options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+
+                // Configuring account lockout options in asp.net core
+                // Sets the number of failed logon attempts allowed before the account is locked out. 
+                // The default is 5.
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                // Sets the amount of the time the account should be locked. The default it 5 minutes.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders()
