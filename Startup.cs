@@ -75,29 +75,29 @@ namespace EmployeeManagement
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
             });
 
-            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
-
-            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
-
-            services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
-            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
-
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 2;
-                options.Password.RequireNonAlphanumeric = false;                
+                options.Password.RequireNonAlphanumeric = false;
                 options.SignIn.RequireConfirmedEmail = true;
                 options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders()
-            // Step3: Register custom token provider
             .AddTokenProvider<CustomEmailConfirmationTokenProvider<ApplicationUser>>("CustomEmailConfirmation");
 
-            // Step4: Change the token lifespan of just the Email Confirmation Token type
+            services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
+
             services.Configure<CustomEmailConfirmationTokenProviderOptions>(o =>
                     o.TokenLifespan = TimeSpan.FromDays(3));
+
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
+
+            services.AddSingleton<IAuthorizationHandler,CanEditOnlyOtherAdminRolesAndClaimsHandler>();
+            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
+            // Step2: Register purpose string class with DI container
+            services.AddSingleton<DataProtectionPurposeStrings>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

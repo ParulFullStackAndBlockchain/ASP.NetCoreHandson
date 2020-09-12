@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Security
 {
-    // Step2: Create custom email confirmation token provider
     public class CustomEmailConfirmationTokenProvider<TUser>: DataProtectorTokenProvider<TUser> where TUser : class
     {
         public CustomEmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider,
