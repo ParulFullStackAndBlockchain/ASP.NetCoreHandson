@@ -202,3 +202,5 @@ C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\A
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPasswordConfirmation.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePassword.cshtml.g.cs
 C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswordConfirmation.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\AddPassword.cshtml.g.cs
+C:\Parul\ASPDotNet_Core\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Account\AddPasswordConfirmation.cshtml.g.cs
