@@ -246,7 +246,7 @@ namespace EmployeeManagement.Controllers
                 //Below lines of code, block the login and displays Email not confirmed yet error. 
                 if (user != null && !user.EmailConfirmed &&
                             (await userManager.CheckPasswordAsync(user, model.Password)))
-                {                    
+                {
                     ModelState.AddModelError(string.Empty, "Email not confirmed yet");
                     return View(model);
                 }
